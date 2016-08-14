@@ -18,6 +18,8 @@ gem 'bcrypt'
 
 gem 'faker'
 
+gem 'nokogiri'
+
 group :test do
   gem 'shoulda-matchers'
   gem 'rack-test'
