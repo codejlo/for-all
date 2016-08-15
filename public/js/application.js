@@ -1,22 +1,21 @@
 $(document).ready(function() {
-  bindListeners();
+  changeRepresentativeListener();
+  console.log("Jquery lives!")
 });
 
-function bindListeners() {
-  changeRepresentativeListener();
-}
-
 function changeRepresentativeListener() {
-  $('.body-content').on("click", ".representative",function(event) {
+  $('#body-content').on("click", "a",function(event) {
+    console.log("I'm listening")
     event.preventDefault();
 
-    request = $.ajax({
+    var request = $.ajax({
       url: $(this).attr('href'),
       method: "GET"
     });
 
     request.done(function(response) {
-      $('.show-container').html(response)
+      console.log(response)
+      $('#show-data').replaceWith(response)
     });
 
     request.fail(function(response) {

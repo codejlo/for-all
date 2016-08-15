@@ -7,10 +7,12 @@ get '/representatives' do
 end
 
 get '/representatives/:id' do
-  p politician = Politician.find(params[:id])
+  politician = Politician.find(params[:id])
   if request.xhr?
+    p "I'm Ajaxing"
     erb :'/representatives/show', layout: false, locals: {representative: politician}
   else
+    p "I'm NOT Ajaxing"
     erb :'/representatives/show', locals: {representative: politician}
   end
 end

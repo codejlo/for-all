@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   # include external modules
   include BCrypt
 
+  # implement authentication
   def password
     @password ||= Password.new(password_hash)
   end
@@ -31,12 +32,14 @@ class User < ActiveRecord::Base
     self.password == submitted_password
   end
 
+  # create string out of address
   def parse_address
     if self.street && self.city && self.state
       self.street.to_s + "%2C" + self.city.to_s + "%2C" + self.state.to_s
     end
   end
 
+  # get representative data from google
   def fetch_rep_data
     base_url = "https://www.googleapis.com/civicinfo/v2/representatives?address="
     address = "#{self.parse_address}&"
@@ -45,9 +48,9 @@ class User < ActiveRecord::Base
     full_request_uri = base_url + address + api_key
 
     pp JSON.parse(open(full_request_uri).read)
-
   end
 
+  # populate database with political divisions for user location
   def populate_divisions(division_data)
     division_data.keys.each do |division_key|
       division = Division.find_by(identifier: division_key) || Division.create(identifier: division_key, name: division_data[division_key]["name"])
@@ -55,6 +58,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # populate offices and representatives based on google data
   def populate_offices_reps(office_official_data)
     reformatted_offices = []
 
@@ -65,13 +69,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    p "*"*100
-    pp reformatted_offices
-    p reformatted_offices.length
-    p "*"*100
-    pp office_official_data["officials"]
-    p office_official_data["officials"].length
-    p "*"*100
+    my_officials = office_official_data["officials"]
 
     reformatted_offices.each_with_index do |office, index|
 
@@ -79,24 +77,28 @@ class User < ActiveRecord::Base
       current_office = Office.find_by(name: office["name"], division_id: division.id) || Office.create(name: office["name"])
       division.offices << current_office unless division.offices.include?(current_office)
 
-      politician = Politician.find_by(name: office_official_data["officials"][index]["name"],
-                                      state: if office_official_data["officials"][index]["address"] != nil then office_official_data["officials"][index]["address"][0]["state"] end) || 
-                            Politician.create(name: office_official_data["officials"][index]["name"], 
-                                              street: if office_official_data["officials"][index]["address"] != nil then office_official_data["officials"][index]["address"][0]["line1"] end,
-                                              city: if office_official_data["officials"][index]["address"] != nil then office_official_data["officials"][index]["address"][0]["city"] end,
-                                              state: if office_official_data["officials"][index]["address"] != nil then office_official_data["officials"][index]["address"][0]["state"] end,
-                                              zip_code: if office_official_data["officials"][index]["address"] != nil then office_official_data["officials"][index]["address"][0]["zip"] end,
-                                              party: office_official_data["officials"][index]["party"],
-                                              phone: if office_official_data["officials"][index]["phones"] != nil then office_official_data["officials"][index]["phones"][0] end,
-                                              website_url: if office_official_data["officials"][index]["urls"] != nil then office_official_data["officials"][index]["urls"][0] end,
-                                              photo_url: office_official_data["officials"][index]["photoUrl"],
-                                              twitter_id: "placeholder",
+      politician = Politician.find_by(name: my_officials[index]["name"],
+                                      state: if my_officials[index]["address"] != nil then my_officials[index]["address"][0]["state"] end) || 
+                            Politician.create(name: my_officials[index]["name"], 
+                                              street: if my_officials[index]["address"] != nil then my_officials[index]["address"][0]["line1"] end,
+                                              city: if my_officials[index]["address"] != nil then my_officials[index]["address"][0]["city"] end,
+                                              state: if my_officials[index]["address"] != nil then my_officials[index]["address"][0]["state"] end,
+                                              zip_code: if my_officials[index]["address"] != nil then my_officials[index]["address"][0]["zip"] end,
+                                              party: my_officials[index]["party"],
+                                              phone: if my_officials[index]["phones"] != nil then my_officials[index]["phones"][0] end,
+                                              website_url: if my_officials[index]["urls"] != nil then my_officials[index]["urls"][0] end,
+                                              photo_url: my_officials[index]["photoUrl"],
+                                              twitter_id: if my_officials[index]["channels"] != nil &&
+                                                             my_officials[index]["channels"].find { |hash| hash["type"] == "Twitter" } != nil
+                                                          then my_officials[index]["channels"].find { |hash| hash["type"] == "Twitter" }["id"] end,
                                               status: "active")
 
       current_office.politicians << politician unless current_office.politicians.include?(politician)
     end 
   end
 
+
+  # populate
   def populate_google_reps(args = {})
     if !self.has_reps || args.fetch(:overwrite, false)
       self.has_reps = true
