@@ -111,3 +111,31 @@ nav a:clicked {
 
 }
 
+.index-container {
+  display: inline-block;
+  height: 100vh;
+  vertical-align: top;
+  padding-top: 20px;
+  background-color: var(--color-patriot-blue-light);
+}
+
+.representative {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 30px;
+  color: var(--color-text-dark);
+  text-decoration: none;
+}
+
+.show-container {
+  display: inline-block;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+#primary-image {
+  width: 300px;
+}
