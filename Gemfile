@@ -16,9 +16,14 @@ gem 'shotgun'
 
 gem 'bcrypt'
 
-gem 'faker'
-
 gem 'nokogiri'
+gem 'json'
+gem 'dotenv'
+
+# Add support for google api client
+gem 'google-api-client'
+gem 'omniauth'
+gem 'google-api-omniauth'
 
 group :test do
   gem 'shoulda-matchers'

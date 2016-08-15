@@ -20,7 +20,7 @@
 <body>
   <nav>
     <ul>
-    <% if @current_user %>
+    <% if logged_in? %>
       <li><a href='/'>Home</a></li>
       <li><a href='/users/<%=@current_user.id%>/profile'>Profile</a></li>
       <li><a href='/users/<%=@current_user.id%>/settings'>Settings</a></li>

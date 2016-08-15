@@ -1,5 +1,5 @@
 /* Create variables for common formatting */
-.root {
+:root {
   --color-background-dark: #312F2F;
   --color-background-light: #FEFFFE;
   --color-button: blue;
@@ -8,7 +8,7 @@
   --color-patriot-red: #F60A20;
   --color-patriot-blue: #0A2472;
   --color-patriot-blue-light: #A7BED3;
-
+  font-family: sans-serif;
 }
 
 /***********************************************/
@@ -68,12 +68,21 @@ blockquote, q {
 
 nav {
   display: flex;
-  position: fixed;
+  justify-content: flex-end;
+  height: 30px;
   background-color: var(--color-background-dark);
+  align-items: center;
 }
 
 nav ul {
   list-style-type: none;
+}
+
+nav li {
+  display: inline-block;
+  width: 8vw;
+  min-width: 40px;
+  text-align: center;
 }
 
 nav a {
@@ -101,3 +110,4 @@ nav a:clicked {
 .entry-form-heading {
 
 }
+

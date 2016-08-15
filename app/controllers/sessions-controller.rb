@@ -3,7 +3,7 @@ get '/sessions/new' do
 end
 
 post '/sessions' do
-  user = User.find(email: params[:email])
+  user = User.find_by(email: params[:email])
   if user.authenticate?(params[:password])
     session[:id] = user.id
     redirect '/'

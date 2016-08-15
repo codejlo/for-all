@@ -5,6 +5,7 @@ end
 post '/users' do
   user = User.new(params[:user])
   if user.save
+    user.populate_google_reps
     session[:id] = user.id
     redirect '/'
   else
