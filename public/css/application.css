@@ -1,0 +1,141 @@
+/* Create variables for common formatting */
+:root {
+  --color-background-dark: #312F2F;
+  --color-background-light: #FEFFFE;
+  --color-button: blue;
+  --color-text-light: #FEFFFE;
+  --color-text-dark: #312F2F;
+  --color-patriot-red: #F60A20;
+  --color-patriot-blue: #0A2472;
+  --color-patriot-blue-light: #A7BED3;
+  font-family: sans-serif;
+}
+
+/***********************************************/
+/************* Set page defaults ***************/
+/***********************************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+body {
+  line-height: 1;
+  color: black;
+  background: white;
+}
+ol, ul {
+  list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+}
+blockquote, q {
+  quotes: "" "";
+}
+/***********************************************/
+/************* End page defaults ***************/
+/***********************************************/
+
+/* Custom CSS Start */
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  background-color: var(--color-background-dark);
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav li {
+  display: inline-block;
+  width: 8vw;
+  min-width: 40px;
+  text-align: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--color-text-light);
+}
+
+nav a:hover {
+
+}
+
+nav a:clicked {
+  text-decoration: none;
+  color: var(--color-text-light);
+}
+
+#body-content {
+  margin: 0 auto;  
+}
+
+.entry-form {
+
+}
+
+.entry-form-heading {
+
+}
+
+.index-container {
+  display: inline-block;
+  height: 100vh;
+  vertical-align: top;
+  padding-top: 20px;
+  background-color: var(--color-patriot-blue-light);
+}
+
+.representative {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 30px;
+  color: var(--color-text-dark);
+  text-decoration: none;
+}
+
+.show-container {
+  display: inline-block;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+#primary-image {
+  width: 300px;
+}

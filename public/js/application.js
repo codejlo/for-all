@@ -1,7 +1,26 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
-
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  changeRepresentativeListener();
+  console.log("Jquery lives!")
 });
+
+function changeRepresentativeListener() {
+  $('#body-content').on("click", "a",function(event) {
+    console.log("I'm listening")
+    event.preventDefault();
+
+    var request = $.ajax({
+      url: $(this).attr('href'),
+      method: "GET"
+    });
+
+    request.done(function(response) {
+      console.log(response)
+      $('#show-data').replaceWith(response)
+    });
+
+    request.fail(function(response) {
+      console.log("Failed ajax request for rep show.")
+    });
+
+  });
+}
