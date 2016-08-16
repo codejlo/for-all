@@ -20,6 +20,10 @@ gem 'nokogiri'
 gem 'json'
 gem 'dotenv'
 
+gem "koala", "~> 2.2"
+gem 'awesome_print'
+gem 'pry-byebug'
+
 # Add support for google api client
 gem 'google-api-client'
 gem 'omniauth'
