@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
 
-  # populate
+  # populate ruby objects and database with representative data
   def populate_google_reps(args = {})
     if !self.has_reps || args.fetch(:overwrite, false)
       self.has_reps = true
