@@ -1,14 +1,14 @@
-<div class=index-container>
+<div class='index-container'>
   <% p "*"*30 %>
   <% p representatives %>
   <% representatives.each do |representative| %>
     <% p "*"*15 %>
     <% p representative %>
     <div>
-      <a class=representative href="/representatives/<%= representative.first.id %>"><%= representative.first.name %></a>
+      <a class=index-item1 href="/representatives/<%= representative.first.id %>"><%= representative.first.name %></a>
     </div>
   <% end %>
 </div>
-<div class=show-container>
+<div class='show-container1'>
   <%= erb :"/representatives/show", layout: false , locals: { representative: representatives.first.first } %>
 </div>

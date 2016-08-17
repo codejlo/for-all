@@ -7,12 +7,15 @@
   <link rel="stylesheet" href="/css/application.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="/js/application.js"></script>
+  <script src="/js/playground.js"></script>
 
   <title>For All</title>
 </head>
 <body>
   <nav>
+    <div id='left-nav'>
+    </div>
+    <div id='right-nav'>
     <ul>
     <% if logged_in? %>
       <li><a href='/'>Home</a></li>
@@ -29,7 +32,17 @@
       <li><a href='/users/new'>Register</a></li>
     <% end %>
     </ul>
+    </div>
   </nav>
+  <div id=window_nav>
+    <ul>
+    <% if logged_in? %>
+      <li><a id='left-tab' href='/representatives'>Representatives</a></li>
+      <li><a id='middle-tab' href='/races'>2016 Races</a></li>
+      <li><a id ='right-tab' href='/initiatives'>2016 Initiatives</a></li>
+    <% end %>
+    </ul>
+  </div>
   <div id=body-content>
     <%= yield %>
   </div>

@@ -1,0 +1,14 @@
+<div class='index-container'>
+
+  <% races.each do |race| %>
+  <div>
+    <a class='index-item2' href="/races/<%= race.id %>"><%= race.office_name %></a>
+  </div>
+  <% end %>
+
+</div>
+
+<div class='show-container2'>
+  <%= erb :"/races/show", layout: false , locals: { candidates: races.first.candidates } %>
+</div>
+

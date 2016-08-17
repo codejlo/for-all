@@ -42,6 +42,7 @@ candidate_data.each do |this_candidate|
   race = Race.find_or_create_by(office_name: this_candidate["office_name"], division: this_candidate["divisionId"], office_id: office.id)
 
   candidate = Candidate.create(name: this_candidate["name"],
+                               party: this_candidate["can_par_aff"],
                                state: this_candidate["state"],
                                fecId: this_candidate["FEC_id"],
                                fec_url: this_candidate["FEC_url"])
@@ -49,4 +50,22 @@ candidate_data.each do |this_candidate|
 end
 
 
+initiative_data = []
+CSV.foreach("db/resources/california_propositions.csv") do |row|
+  initiative_data << row
+end
 
+headers = initiative_data.shift
+
+initiative_data.map! { |row| Hash[headers.zip(row)] }
+
+ap initiative_data
+
+initiative_data.each do |this_initiative|
+  division = Division.find_or_create_by(identifier: this_initiative["Division"])
+
+  initiative = Initiative.create(title: this_initiative["Title"],
+                               subject: this_initiative["Subject"],
+                               description: this_initiative["Description"])
+  division.initiatives << initiative unless division.initiatives.include?(initiative)
+end

@@ -1,0 +1,7 @@
+<% candidates.each do |candidate| %>
+  <div id='show-data2'>
+    <h3 class=primary-heading><%= candidate.name %></h3>
+    <h4><%= candidate.party %></h4>
+    <a href='<%= candidate.fec_url %>'>Federal Election Committee Filings ($)</a>
+  </div>
+<% end %>

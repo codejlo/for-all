@@ -1,5 +1,5 @@
 get '/representatives' do
-  p user = User.find(current_user.id)
+  p user = User.find(current_user.id) # already the user, duh
   p divisions = user.divisions
   p offices = divisions.map { |division| division.offices }.flatten
   p politicians = offices.map { |office| office.politicians }

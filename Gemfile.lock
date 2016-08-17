@@ -60,7 +60,7 @@ GEM
       os (~> 0.9)
       signet (~> 0.7)
     hashie (3.4.4)
-    httpclient (2.8.2.1)
+    httpclient (2.8.2.2)
     hurley (0.2)
     i18n (0.7.0)
     json (1.8.3)
