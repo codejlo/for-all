@@ -24,6 +24,8 @@ gem "koala", "~> 2.2"
 gem 'awesome_print'
 gem 'pry-byebug'
 
+gem 'faker'
+
 # Add support for google api client
 gem 'google-api-client'
 gem 'omniauth'
