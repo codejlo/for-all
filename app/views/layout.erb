@@ -5,21 +5,23 @@
     application.css is where you put your styles
   -->
   <link rel="stylesheet" href="/css/application.css">
-
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="/js/playground.js"></script>
+  <script src="/js/application.js"></script>
 
   <title>For All</title>
 </head>
 <body>
   <nav>
     <div id='left-nav'>
+      <img id='header-logo' src="http://static1.squarespace.com/static/52e08963e4b03bb9f7326453/54403eb8e4b090edefe0ab08/5597ecfde4b01a6af58d7ed9/1468883911058/?format=1500w">
     </div>
     <div id='right-nav'>
     <ul>
     <% if logged_in? %>
       <li><a href='/'>Home</a></li>
-      <li><a href='/users/<%=@current_user.id%>/profile'>Profile</a></li>
+      <li><a href='/users/<%=@current_user.id%>'>My Ticket</a></li>
+      <li><a href='/users'>Community</a></li>
       <li>
         <form action='/sessions/<%= current_user.id %>' method='POST'>
           <input type='hidden' name='_method' value="delete">

@@ -2,4 +2,16 @@
   <h3 class=primary-heading><%= initiative.title %></h3>
   <h4 class=sub-heading><%= initiative.subject %></h4>
   <p class=little-data><%= initiative.description %></p>
+  <form id='initiative-form' action='/initiatives/<%=initiative.id%>/votes' method="POST">
+    <input class='initiative-selector' type='radio' id='yes' name='initiative_selection' value='yes' <%= 'checked' if initiative.votes.find { |vote| vote.user_id == current_user.id && vote.initiative_selection == 'yes' } %>>
+    <label for='yes'>Yes</label>
+    <input class='initiative-selector' type='radio' id='no' name='initiative_selection' value='no' <%= 'checked' if initiative.votes.find { |vote| vote.user_id == current_user.id && vote.initiative_selection == 'no' } %>>
+    <label for='no'>No</label>
+      <p> <!-- spacing --></p>
+      <% initiative_yes_votes = initiative.votes.reduce(0) { |sum, vote| vote.initiative_selection == 'yes' ? 1 : 0 } %>
+      <% initiative_votes = initiative.votes.count %>
+      <p class='stats'>Support among all voters: <%= initiative_yes_votes * 100 / initiative_votes if initiative_votes > 0 %>%</p>
+      <p> <!-- spacing --></p>
+    <input class='vote-submit' type='submit' value='Save Vote'>
+  </form>
 </div>

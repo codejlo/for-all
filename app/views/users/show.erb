@@ -1,0 +1,46 @@
+<div id='list-container'>
+  <h3 class='primary-heading'><%= @user.name %></h3>
+  <h4 class=sub-heading>Races</h4>
+  <% @votes.each do |vote| %>
+     <% if vote.race %>
+      <div class='list-row'>
+        <p class='list-item-field-start'><%= vote.race.office_name %></p>
+        <p class='list-item-field-middle'><%= vote.candidate.name %></p>
+        <% if @user != current_user && !current_user.votes.find { |my_vote| my_vote.candidate == vote.candidate } %>
+          <% if @current_user_races.include?(vote.race) %>
+            <form class='list-item-form' action='/races/<%= vote.race.id %>/votes' method='POST'>
+              <input type="hidden" name="candidate_id" value="<%= vote.candidate.id %>">
+              <input class=list-item-submit type="submit" value="Match Vote">
+            </form>
+          <% else %>
+            <p class='list-item-field-end gray-back'>Off Ballot</p>
+          <% end %>
+        <% else %>
+          <p class='list-item-field-end'>Vote recorded</p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <h4 class=sub-heading>Initiatives</h4>
+  <% @votes.each do |vote| %>
+     <% if vote.initiative %>
+      <div class='list-row'>
+        <p class='list-item-field-start'><%= vote.initiative.title %></p>
+        <p class='list-item-field-middle'><%= vote.initiative_selection %></p>
+        <% if @user != current_user && !current_user.votes.find { |my_vote| my_vote.initiative_id == vote.initiative_id && my_vote.initiative_selection == vote.initiative_selection } %>
+          <% if @current_user_divisions.include?(vote.initiative.division) %>
+            <form class='list-item-form' action='/initiatives/<%= vote.initiative.id %>/votes' method='POST'>
+              <input type="hidden" name="initiative_selection" value="<%= vote.initiative_selection %>">
+              <input class=list-item-submit type="submit" value="Match Vote">
+            </form>
+          <% else %>
+            <p class='list-item-field-end gray-back'>Off Ballot</p>            
+          <% end %>
+        <% else %>
+          <p class='list-item-field-end'>Vote recorded</p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
