@@ -1,0 +1,19 @@
+<form id='candidate-form' action='/races/<%=candidates[0].race.id%>/votes' method='POST'>
+  <% candidates.each do |candidate| %>
+    <div id='show-data2' <%= "class='selected'" if candidate.votes.find { |vote| vote.user_id == current_user.id } %>>
+      <input class='candidate-selector' type="radio" name="candidate_id" value="<%= candidate.id %>" <%= 'checked' if candidate.votes.find { |vote| vote.user_id == current_user.id } %>>
+      <h3 class=primary-heading><%= candidate.name %></h3>
+      <h4><%= candidate.party %></h4>
+      <a href='<%= candidate.fec_url %>'>FEC Filings ($)</a>
+      <!-- add vote % -->
+      <p> <!-- spacing --></p>
+      <% candidate_votes = candidate.votes.count %>
+      <% race_votes = candidate.race.votes.count %>
+      <% p following_candidate_votes = candidate.votes.reduce(0) { |sum, vote| current_user.following.include?(vote.user) ? 1 : 0 } %>
+      <% p following_race_votes = candidate.race.votes.reduce(0) { |sum, vote| current_user.following.include?(vote.user) ? 1 : 0 } %>
+      <p class='stats'>Among all voters: <%= candidate_votes * 100 / race_votes if race_votes > 0%>%</p>
+      <p class='stats'>Among followed voters: <%= following_candidate_votes * 100 / following_race_votes if following_race_votes > 0 %>%</p>
+    </div>
+  <% end %>
+  <input class='vote-submit' type='submit' value='Save Vote'>
+</form>

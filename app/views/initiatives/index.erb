@@ -1,0 +1,14 @@
+<div class='index-container'>
+
+  <% initiatives.each do |initiative| %>
+  <div>
+    <a class='index-item3' href="/initiatives/<%= initiative.id %>"><%= initiative.title %></a>
+  </div>
+  <% end %>
+
+</div>
+
+<div class='show-container3'>
+  <%= erb :"/initiatives/show", layout: false , locals: { initiative: initiatives.first } %>
+</div>
+

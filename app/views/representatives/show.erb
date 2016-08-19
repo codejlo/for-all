@@ -1,10 +1,12 @@
-<div id=show-data>
+<div id='show-data1'>
   <h3 class=primary-heading><%= representative.name %></h3>
   <h4 class=sub-heading><%= representative.offices.first.name %></h4>
-  <img id=primary-image src="<%= representative.photo_url %>">
+  <div id=primary-image-container>
+    <img id=primary-image src="<%= representative.photo_url %>">
+  </div>
   <p class=little-data><%= representative.state %></p>
   <p class=little-data><%= representative.party %></p>
   <p class=little-data><%= representative.phone %></p>
-  <a href='<%= representative.website_url %>'><%= representative.website_url %></p>
+  <a href='<%= representative.website_url %>'><%= representative.website_url %></a>
   <p class=little-data>@<%= representative.twitter_id %></p>
 </div>

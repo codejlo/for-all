@@ -1,0 +1,33 @@
+<div id='list-container'>
+  <h3 class='primary-heading'><%= current_user.name %></h3>
+  <h4 class=sub-heading>Following</h4>
+  <% @users.each do |user| %>
+    <% if user.id != current_user.id %>
+      <% if current_user.following.include?(user) %>
+        <div class='list-row'>
+          <p class='list-item-field-start'><%= user.name %></p>
+          <p class='list-item-field-middle'><%= user.party %></p>
+          <p class='list-item-field-friend gray-back'>Friends</p>
+          <a class='list-item-link' href='/users/<%= user.id %>'>See Ticket</a>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <h4 class=sub-heading>Other Users</h4>
+  <% @users.each do |user| %>
+    <% if user.id != current_user.id %>
+      <% if !current_user.following.include?(user) %>
+        <div class='list-row'>
+          <p class='list-item-field-start'><%= user.name %></p>
+          <p class='list-item-field-middle'><%= user.party %></p>
+          <form class='list-item-friend-form' action='/users/<%= user.id %>/follow' method='POST'>
+            <input type="hidden" name="follow" value=true>
+            <input class=list-item-friend-submit type="submit" value="Follow">
+          </form>
+          <a class='list-item-link' href='/users/<%= user.id %>'>See Ticket</a>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
